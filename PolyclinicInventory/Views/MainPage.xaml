@@ -1,0 +1,50 @@
+﻿<Page x:Class="PolyclinicInventory.Views.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:vm="clr-namespace:PolyclinicInventory.ViewModels"
+      
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800">
+    <Page.DataContext>
+        <vm:MainViewModel />
+    </Page.DataContext>
+    <Page.Resources>
+        <SolidColorBrush x:Key="AcrylicBackground" Color="#80000000" />
+        <!-- Полупрозрачный чёрный -->
+    </Page.Resources>
+    <Grid Background="{StaticResource AcrylicBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <Button Content="Обновить" Command="{Binding RefreshCommand}" Width="100" Margin="5" Style="{StaticResource FluentButtonStyle}" />
+            <Button Content="Экспорт в CSV" Command="{Binding ExportCommand}" Width="120" Margin="5" Style="{StaticResource FluentButtonStyle}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="1">
+            <TextBlock Text="Фильтр (Имя ПК, IP, Принтер, Память):" VerticalAlignment="Center" Margin="5" Foreground="White" />
+            <TextBox Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="5" />
+        </StackPanel>
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Computers}" AutoGenerateColumns="False" Margin="10" Background="Transparent" Foreground="White">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Имя ПК" Binding="{Binding Name, FallbackValue='N/A'}" />
+                <DataGridTextColumn Header="Windows" Binding="{Binding WindowsVersion, FallbackValue='N/A'}" />
+                <DataGridTextColumn Header="Активация" Binding="{Binding ActivationStatus, FallbackValue='N/A'}" />
+                <DataGridTextColumn Header="Срок лицензии" Binding="{Binding LicenseExpiry, FallbackValue='N/A'}" />
+                <DataGridTextColumn Header="IP-адрес" Binding="{Binding IPAddress, FallbackValue='N/A'}" />
+                <DataGridTextColumn Header="MAC-адрес" Binding="{Binding MACAddress, FallbackValue='N/A'}" />
+                <DataGridTextColumn Header="Процессор" Binding="{Binding Processor, FallbackValue='N/A'}" />
+                <DataGridTextColumn Header="Монитор" Binding="{Binding Monitor, FallbackValue='N/A'}" />
+                <DataGridTextColumn Header="Office" Binding="{Binding OfficeStatus, FallbackValue='N/A'}" />
+                <DataGridTextColumn Header="Мышь" Binding="{Binding Mouse, FallbackValue='N/A'}" />
+                <DataGridTextColumn Header="Клавиатура" Binding="{Binding Keyboard, FallbackValue='N/A'}" />
+                <DataGridTextColumn Header="Принтер" Binding="{Binding Printer, FallbackValue='N/A'}" />
+                <DataGridTextColumn Header="Память" Binding="{Binding Memory, FallbackValue='N/A'}" />
+                <DataGridTextColumn Header="Дата проверки" Binding="{Binding LastChecked, FallbackValue='N/A'}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>
